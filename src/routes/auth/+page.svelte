@@ -28,6 +28,7 @@
 
 	let ldapUsername = '';
 
+	// 用于设置会话的用户信息，将 Token 存储到 localStorage，并重定向到首页。
 	const setSessionUser = async (sessionUser) => {
 		if (sessionUser) {
 			console.log(sessionUser);
@@ -43,6 +44,7 @@
 		}
 	};
 
+	// 用户登录函数
 	const signInHandler = async () => {
 		const sessionUser = await userSignIn(email, password).catch((error) => {
 			toast.error(`${error}`);
@@ -52,6 +54,7 @@
 		await setSessionUser(sessionUser);
 	};
 
+	// 用户注册函数
 	const signUpHandler = async () => {
 		const sessionUser = await userSignUp(name, email, password, generateInitialsImage(name)).catch(
 			(error) => {
@@ -63,6 +66,7 @@
 		await setSessionUser(sessionUser);
 	};
 
+	// LDAP登录函数
 	const ldapSignInHandler = async () => {
 		const sessionUser = await ldapUserSignIn(ldapUsername, password).catch((error) => {
 			toast.error(`${error}`);
@@ -71,6 +75,7 @@
 		await setSessionUser(sessionUser);
 	};
 
+	// 提交函数
 	const submitHandler = async () => {
 		if (mode === 'ldap') {
 			await ldapSignInHandler();
@@ -81,6 +86,7 @@
 		}
 	};
 
+	// 检查OAuth回调
 	const checkOauthCallback = async () => {
 		if (!$page.url.hash) {
 			return;
@@ -108,9 +114,11 @@
 	let onboarding = false;
 
 	onMount(async () => {
+		// 如果用户已经登录，直接跳转到首页
 		if ($user !== undefined) {
 			await goto('/');
 		}
+		// 如果存在用户登录信息，检查OAuth回调
 		await checkOauthCallback();
 
 		loaded = true;
@@ -136,6 +144,7 @@
 	}}
 />
 
+<!-- 下面是登录页面的主体部分，包括登录表单和OAuth登录按钮。 -->
 <div class="w-full h-screen max-h-[100dvh] text-white relative">
 	<div class="w-full h-full absolute top-0 left-0 bg-white dark:bg-black"></div>
 

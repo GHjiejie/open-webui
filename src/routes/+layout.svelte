@@ -474,6 +474,7 @@
 </svelte:head>
 
 {#if loaded}
+	<!-- 如果是移动端，显示侧边栏 -->
 	{#if $isApp}
 		<div class="flex flex-row h-screen">
 			<AppSidebar />
