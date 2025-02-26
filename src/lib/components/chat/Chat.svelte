@@ -1845,6 +1845,7 @@
 	};
 </script>
 
+<!-- 注意，这里的代码给你就是标签栏的标题 -->
 <svelte:head>
 	<title>
 		{$chatTitle
